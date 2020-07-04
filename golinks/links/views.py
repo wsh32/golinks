@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+from .models import Link
 
 # Create your views here.
 def index(request):
@@ -11,9 +12,11 @@ def index(request):
 
 
 def forward(request, short_link):
-    # TODO: Get long link from short link
-    long_link = "https://google.com"
-    return redirect(long_link, pernament=True)
+    try:
+        link = Link.objects.get(short_link=short_link)
+        return redirect(link.long_link, pernament=True)
+    except Link.DoesNotExist:
+        return HttpResponse(short_link)
 
 
 def edit(request, short_link):
