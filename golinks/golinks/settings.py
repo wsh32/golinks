@@ -25,12 +25,13 @@ SECRET_KEY = '5v1h5mlza+id(_b#i&736cfo%tkdlt#t9=redk(8(*58*2u%rp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['go', 'goto']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'links.apps.LinksConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
