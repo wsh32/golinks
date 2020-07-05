@@ -9,15 +9,20 @@
 
         <link rel="icon" type="image/png" href="{% static 'links/img/favicon.png' %}">
 
+        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}">
         {% block css %}{% endblock %}
     </head>
 
-    <body>
+    <body class="blue-grey lighten-5">
         <main>
             {% block main %}{% endblock %}
         </main>
     </body>
 
+    <script src="{% static 'js/materialize.js' %}"></script>
+    <script src="{% static 'links/js/init.js' %}"></script>
     {% block js %}{% endblock %}
 
 </html>

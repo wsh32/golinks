@@ -3,7 +3,25 @@
 
 {% block title %}Home{% endblock %}
 
+{% block css %}
+<link type="text/css" rel="stylesheet" href="{% static 'links/css/links.css' %}">
+{% endblock %}
+
 {% block main %}
-    <p>{{ link }}</p>
+<div class="row">
+    <div class="col s12 m4 offset-m4">
+        <h1 class="light">Active Links</h1>
+        {% for link in link_list %}
+        <ul class="link-list">
+            <li>
+                <a style="font-size:400%" href="{{ link.long_link }}"><span class="light grey-text text-lighten-1">go/</span><b class="indigo-text">{{ link.short_link }}</b></a><br>
+            </li>
+            <li>
+                <a style="font-size:200%" href="{{ link.long_link }}" class="light grey-text text-lighten-1">{{ link.long_link }}</a>
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
 

@@ -6,7 +6,7 @@ from .models import Link
 # Create your views here.
 def index(request):
     context = {
-        'link': "google.com",
+        'link_list': Link.objects.all(),
     }
     return render(request, "links/index.html", context)
 
@@ -16,6 +16,7 @@ def forward(request, short_link):
         link = Link.objects.get(short_link=short_link)
         return redirect(link.long_link, pernament=True)
     except Link.DoesNotExist:
+        return redirect(f'{short_link}/edit', pernament=False)
         return HttpResponse(short_link)
 
 

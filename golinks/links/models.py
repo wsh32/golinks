@@ -7,3 +7,6 @@ class Link(models.Model):
     short_link = models.CharField(max_length=200, unique=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.short_link
+
