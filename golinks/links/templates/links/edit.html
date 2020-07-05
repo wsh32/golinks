@@ -1,0 +1,22 @@
+{% extends "links/base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block css %}
+<link type="text/css" rel="stylesheet" href="{% static 'links/css/links.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col s12 m4 offset-m4">
+        <h1 class="light">Edit Link</h1>
+        <ul class="link-list">
+            <li>
+                <a style="font-size:400%" href="#!"><span class="light grey-text text-lighten-1">go/</span><b class="indigo-text">{{ short_link }}</b></a><br>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
