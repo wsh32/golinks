@@ -23,8 +23,16 @@ def forward(request, short_link):
 
 
 def edit(request, short_link):
+    long_link = "#!"
+    try:
+        link = Link.objects.get(short_link=short_link)
+        long_link = link.long_link
+    except Link.DoesNotExist:
+        None
+
     context = {
         'short_link': short_link,
+        'long_link': long_link,
     }
     return render(request, 'links/edit.html', context)
 
@@ -44,7 +52,6 @@ def set_link(request, short_link):
     anonymous = True
     if 'anonymous' in request.POST.keys() and request.user.is_authenticated:
         anonymous = (request.POST['anonymous'] == 'true')
-    print(anonymous)
 
     long_link = request.POST['long_link']
     try:
@@ -59,5 +66,5 @@ def set_link(request, short_link):
         link = Link(short_link=short_link, long_link=long_link, owner=user)
         link.save()
 
-    return HttpResponse(short_link)
+    return redirect(long_link, pernament=True)
 
