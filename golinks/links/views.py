@@ -1,19 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import PermissionDenied
 
 from .models import Link
 
 # Create your views here.
-def index(request):
+def index_view(request):
     context = {
         'link_list': Link.objects.all().order_by('short_link'),
     }
     return render(request, "links/index.html", context)
 
 
-def forward(request, short_link):
+def forward_view(request, short_link):
     try:
         link = Link.objects.get(short_link=short_link)
         return redirect(link.long_link, pernament=True)
@@ -22,11 +23,13 @@ def forward(request, short_link):
         return HttpResponse(short_link)
 
 
-def edit(request, short_link):
+def edit_view(request, short_link):
     long_link = "#!"
+    link_owner = None
     try:
         link = Link.objects.get(short_link=short_link)
         long_link = link.long_link
+        link_owner = link.owner
     except Link.DoesNotExist:
         None
 
@@ -34,10 +37,14 @@ def edit(request, short_link):
         'short_link': short_link,
         'long_link': long_link,
     }
-    return render(request, 'links/edit.html', context)
+
+    if link_owner is None or link_owner == request.user:
+        return render(request, 'links/edit.html', context)
+    else:
+        raise PermissionDenied
 
 
-def set_link(request, short_link):
+def set_link_view(request, short_link):
     if 'long_link' not in request.POST.keys():
         return HttpResponse("No link provided")
 
@@ -67,4 +74,21 @@ def set_link(request, short_link):
         link.save()
 
     return redirect(long_link, pernament=True)
+
+
+def login_view(request):
+    return render(request, "links/login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+
+
+def auth_view(request):
+    if 'username' not in request.POST or 'password' not in request.POST:
+        return HttpResponse("Missing username or password")
+    username = request.POST['username']
+    password = request.POST['password']
+    return redirect('index')
 

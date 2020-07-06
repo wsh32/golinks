@@ -1,3 +1,8 @@
 body {
     font-family: Raleway, Poppins, Roboto
 }
+
+.checkbox-indigo[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid #3f51b5;
+    background-color: #3f51b5;
+}

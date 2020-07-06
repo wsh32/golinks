@@ -14,9 +14,21 @@
         <a style="font-size:300%" href="{{ long_link }}"><span class="light grey-text text-lighten-1">go/</span><b class="indigo-text">{{ short_link }}</b></a><br>
         <form action="set" method="post">
             {% csrf_token %}
-            <div class="input-field">
-                <input id="long_link" name="long_link" type="url" class="validate" required></input>
-                <label for="long_link">Link</label>
+            <div class="row">
+                <div class="input-field col s12 {% if user.is_authenticated %}m9{% endif %}">
+                    <input id="long_link" name="long_link" type="url" class="validate" required></input>
+                    <label for="long_link">Link</label>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="col s12 m3">
+                    <p>
+                        <label>
+                            <input type="checkbox" checked="checked" class="filled-in checkbox-indigo" />
+                            <span>Publicly Editable</span>
+                        </label>
+                    </p>
+                </div>
+                {% endif %}
             </div>
             <button class="btn waves-effect waves-light indigo" type="submit" name="action">Submit</button>
         </form>
