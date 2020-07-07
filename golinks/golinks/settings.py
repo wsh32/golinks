@@ -25,7 +25,7 @@ SECRET_KEY = '5v1h5mlza+id(_b#i&736cfo%tkdlt#t9=redk(8(*58*2u%rp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['go', 'goto']
+ALLOWED_HOSTS = ['go', 'goto', 'g', 'go.g', 'gg']
 
 
 # Application definition
